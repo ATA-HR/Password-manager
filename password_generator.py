@@ -1,5 +1,6 @@
 import string
 import secrets
+import pyperclip
 
 
 def pass_gen():
@@ -10,11 +11,13 @@ def pass_gen():
         if (any(c.islower() for c in password)
                 and any(c.isupper() for c in password)
                 and sum(c.isdigit() for c in password) >= 3
-                and any(c.isspace() for c in password)):
+                and any(c.isspace() for c in password[:password_lenght-1])):
             break
         
     return password
 
 
 password = pass_gen()
-print(password)
+pyperclip.copy(password)
+print('your password is --> ', password)
+print('your password is copied in clipboard')
