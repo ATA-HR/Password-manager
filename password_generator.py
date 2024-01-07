@@ -1,11 +1,10 @@
 import string
 import secrets
-import pyperclip
 
 
 def pass_gen():
     password_lenght = 12
-    alphabet = string.ascii_letters + string.digits + ' ' + string.punctuation 
+    alphabet = string.ascii_letters + string.digits + ' ' + '!#$%&()*+,-.:;<=>?@[]^_`{}~'
     while True:
         password = ''.join(secrets.choice(alphabet) for i in range(password_lenght))
         if (any(c.islower() for c in password)
@@ -17,8 +16,3 @@ def pass_gen():
         
     return password
 
-print(string.punctuation)
-password = pass_gen()
-pyperclip.copy(password)
-print('your password is --> ', password)
-print('your password is copied in clipboard')
