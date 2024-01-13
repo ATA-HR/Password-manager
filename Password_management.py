@@ -1,4 +1,5 @@
-import sqlite3, pyperclip
+import sys
+import sqlite3, pyperclip, bcrypt
 
 from password_generator import pass_gen
 
@@ -8,7 +9,7 @@ while True:
         Menu
         1.Generate new password
         2.Save a password
-        3.Exit
+        0.Exit
         ''')
     choice = int(input('Select a option:'))
 
@@ -19,20 +20,22 @@ while True:
         print('Your password copied in clipboard.')
 
     elif choice == 2:    
-        con = sqlite3.connect('password_manager.db')
-        cur = con.cursor()
         try:
             cur.execute('CREATE TABLE password(title, password)')   
         except:
             pass
-        name = input('enter name:')
+        con = sqlite3.connect('password_manager.db')
+        cur = con.cursor()
+        name = input('Enter a name:')
+        # password = 
         cur.execute(f'''
             INSERT INTO password VALUES ('{name}', "{password}")
         ''')
         con.commit()
 
-    elif choice == 3:
-        exit()
+    elif choice == 0:
+        sys.exit()
 
-    if input('Do you want to continue?(y/n)') == 'n':
+    conti =  input('Do you want to continue?(y/n)').lower()
+    if conti == 'n' or conti == 'no':
         break
